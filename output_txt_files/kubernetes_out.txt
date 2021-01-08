@@ -1,1 +1,7 @@
-<paste log output from Kubernetes-mediated prediction, here>
+project-ml-microservice-kubernetes]$ ./run_kubernetes.sh 
+Error from server (AlreadyExists): pods "c4-flasky-webserver" already exists
+NAME                  READY   STATUS    RESTARTS   AGE
+c4-flasky-webserver   1/1     Running   0          7m9s
+Forwarding from 127.0.0.1:8000 -> 80
+Forwarding from [::1]:8000 -> 80
+Handling connection for 8000
