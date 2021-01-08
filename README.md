@@ -36,11 +36,11 @@ To avoid dependency collision of python packages, we will create a dedicated env
 
 1.  Create a virtualenv and activate it
 
-    $ make setup
+        $ make setup
 
 2. Install necessary dependencies
 
-    $ make install
+        $ make install
 
 ### 2. Running ML Web Application
 
