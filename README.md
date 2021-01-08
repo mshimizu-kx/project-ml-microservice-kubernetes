@@ -124,4 +124,10 @@ Now ML application is waiting for data on port 8000. You can post data there ...
 $ ./make_prediction.sh
 
 ```
- Play around by changing data properties in the script!!
+
+**Note:** The script may fail in the first run because deploying a pod takes a little of time. Wait until the status becomes `RUNNING` and run again. You can check status of pod by:
+        
+        $ kubectl get pod
+        
+
+Play around by changing data properties in the script!!
