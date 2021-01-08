@@ -1,42 +1,127 @@
-<include a CircleCI status badge, here>
+# Project of CloudDevOps Engineer Course4
 
-## Project Overview
+![CircleCI](https://img.shields.io/circleci/build/github/mshimizu-kx/project-ml-microservice-kubernetes?label=circleci)
 
-In this project, you will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API. 
 
-You are given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
+## Overview
 
-### Project Tasks
+The project is to deploy a pre-trained machine-learning web application with a container and kubernetes in automatic way. This deployment requires following tasks:
 
-Your project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
-* Test your project code using linting
-* Complete a Dockerfile to containerize this application
-* Deploy your containerized application using Docker and make a prediction
-* Improve the log statements in the source code for this application
-* Configure Kubernetes and create a Kubernetes cluster
-* Deploy a container using Kubernetes and make a prediction
-* Upload a complete Github repo with CircleCI to indicate that your code has been tested
+- Build a dedicated environment with specific python version.
+- Check linting of python files and a Dockerfile.
+- Build a docker image with installing dependencies.
+- Check behavior of application by posting data.
+- Deploy the container image with Kubernetes.
+  
+## Files
 
-You can find a detailed [project rubric, here](https://review.udacity.com/#!/rubrics/2576/view).
+- `model_data/`: Containins data and pre-trained model for prediction.
+- `output_txt_files/`: Contains output from docker and kubernetes when checking a behavior of the application.
+- `app.py`: Web application script run on a container.
+- `Dockerfile`: Template for building the container.
+- `make_prediction.sh`: Script to post data to the application.
+- `Makefile`: Script to set up environment and validating files.
+- `requirements.txt`: List of python dependencies.
+- `run_docker.sh`: Build and run the docker container.
+- `run_kubernetes.sh`: Script to run the container with proper port-forwarding.
+- `upload_docker.sh`: Script to upload the built container image to a registry.
 
-**The final implementation of the project will showcase your abilities to operationalize production microservices.**
+## Quick Tour
 
----
+The intructions below guide you from setup of the environmemt to running the ML application and get a prediction of housing price.
 
-## Setup the Environment
+### 1. Setup the Environment
 
-* Create a virtualenv and activate it
-* Run `make install` to install the necessary dependencies
+To avoid dependency collision of python packages, we will create a dedicated environment to run this appication.
 
-### Running `app.py`
+1.  Create a virtualenv and activate it
 
-1. Standalone:  `python app.py`
-2. Run in Docker:  `./run_docker.sh`
-3. Run in Kubernetes:  `./run_kubernetes.sh`
+    $ make setup
 
-### Kubernetes Steps
+2. Install necessary dependencies
 
-* Setup and Configure Docker locally
-* Setup and Configure Kubernetes locally
-* Create Flask app in Container
-* Run via kubectl
+    $ make install
+
+### 2. Running ML Web Application
+
+There are three ways to launch the ML application:
+
+1. Standalone
+2. Run in Docker
+3. Run in Kubernetes
+
+#### 2.1 Launch Standaone Application
+
+This option does not require anything. Just run python script:
+
+```bash
+
+$ python app.py
+
+```
+
+#### 2.2 Launch with Docker
+
+**Requirement:**
+
+- Docker
+
+Ensure docker is running. If you are using CentOS, the command should be like this:
+
+```bash
+
+$ sudo systemctl start docker
+
+```
+
+You need to build a docker image containing the application and dependencies. However, you can omit everything by running the provided script!! 🍕🍕🍕
+
+The script does:
+
+- Build a docker image
+- List images
+- Run the container on the port 8000
+
+```bash
+
+$ ./run_docker.sh
+
+```
+
+#### 2.3 Launch with Kubernetes
+
+**Requirements:**
+
+- Minikube (or Kubernetes)
+- Docker Hub account
+
+In order to lauch a docker image with Kubernetes you need to upload the docker image to your registry. If you have not built an image you can build with the provided `run_docker.sh` (See [Launch with Docker](#22-launch-with-docker) section).
+
+In order to upload the associated image to an online registry, use the provided script `upload_docker.sh` 🍟🍟🍟.
+
+```bash
+
+$ docker login
+$ ./upload_docker.sh
+
+```
+
+Then start kuberenetes (We will use minikube here) and launch a pod with the image, again with the prepared script!! 🍔🍔🍔
+
+```bash
+
+$ minikube start
+$ ./run_kubernetes.sh
+
+```
+
+### 3. Get Prediction
+
+Now ML application is waiting for data on port 8000. You can post data there ... with the simple script!! 😂😂😂 (Be my guest!!)
+
+```bash
+
+$ ./make_prediction.sh
+
+```
+ Play around by changing data properties in the script!!
