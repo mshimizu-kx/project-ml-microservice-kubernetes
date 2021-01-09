@@ -97,11 +97,10 @@ $ ./run_docker.sh
 
 In order to lauch a docker image with Kubernetes you need to upload the docker image to your registry. If you have not built an image you can build with the provided `run_docker.sh` (See [Launch with Docker](#22-launch-with-docker) section).
 
-In order to upload the associated image to an online registry, use the provided script `upload_docker.sh` 🍟🍟🍟.
+In order to upload the associated image to an online registry, use the provided script `upload_docker.sh` 🍟🍟🍟. You need to set an environmental variable `DOCKERHUB_PASSWORD` before executing the script. Its value is your password to login Docker hub.
 
 ```bash
 
-$ docker login
 $ ./upload_docker.sh
 
 ```
