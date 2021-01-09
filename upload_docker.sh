@@ -11,6 +11,7 @@ dockerpath=mshimizukx/flasky:latest
 # Step 2:  
 # Authenticate & tag
 echo "Docker ID and Image: $dockerpath"
+docker login --username mshimizukx --password ${DOCKERHUB_PASSWORD}
 docker tag flasky:latest $dockerpath
 
 # Step 3:
